@@ -47,6 +47,19 @@ class VideoConverterApp:
         self.status_textbox.pack(pady=10)
         self.status_textbox.configure(state='disabled')
 
+        self.progress_frame = ctk.CTkFrame(self.scrollable_frame)
+        self.progress_frame.pack(pady=(0, 5), fill="x", padx=10)
+
+        self.progress_count_label = ctk.CTkLabel(self.progress_frame, text="0/0", width=50, anchor="w")
+        self.progress_count_label.pack(side="left")
+
+        self.progress_bar = ctk.CTkProgressBar(self.progress_frame)
+        self.progress_bar.set(0)
+        self.progress_bar.pack(side="left", expand=True, fill="x", padx=10)
+
+        self.progress_percent_label = ctk.CTkLabel(self.progress_frame, text="0%", width=50, anchor="e")
+        self.progress_percent_label.pack(side="right")
+
     def select_directory(self):
         directory = filedialog.askdirectory()
         if directory:
@@ -57,6 +70,7 @@ class VideoConverterApp:
         if not self.selected_directory:
             messagebox.showerror("Erro", "Por favor, selecione um diretório primeiro.")
             return
+        self.clear_status()
         Thread(target=self.convert_videos).start()
 
     def convert_videos(self):
@@ -68,26 +82,23 @@ class VideoConverterApp:
             os.makedirs(output_dir)
 
         video_extensions = ['*.mp4', '*.avi', '*.mov', '*.mkv', '*.flv', '*.wmv', '*.webm', '*.mpeg']
-
         video_files = []
         for ext in video_extensions:
             video_files.extend(glob.glob(os.path.join(input_dir, ext)))
 
+        total_files = len(video_files)
         if not video_files:
             self.append_status("Nenhum arquivo de vídeo encontrado no diretório!\n")
             return
 
-        for file_path in video_files:
+        converted_count = 0
+
+        for idx, file_path in enumerate(video_files, start=1):
             filename = os.path.basename(file_path)
             name_without_ext = os.path.splitext(filename)[0]
             output_file = os.path.join(output_dir, f"{name_without_ext}.{selected_format}")
 
-            cmd = [
-                "ffmpeg",
-                "-y",
-                "-i", file_path,
-                output_file
-            ]
+            cmd = ["ffmpeg", "-y", "-i", file_path, output_file]
 
             self.append_status(f"Convertendo: {filename} para {selected_format.upper()}...\n")
 
@@ -104,7 +115,13 @@ class VideoConverterApp:
                 self.append_status(f"Erro ao converter {filename}: {e}\n")
                 continue
 
-        self.append_status("\nConversão concluída!\n")
+            converted_count += 1
+            progress = converted_count / total_files
+            self.progress_bar.set(progress)
+            self.progress_count_label.configure(text=f"{converted_count}/{total_files}")
+            self.progress_percent_label.configure(text=f"{int(progress * 100)}%")
+
+        self.append_status(f"\nConversão concluída!\nArquivos convertidos salvos em: {output_dir}\n")
         messagebox.showinfo("Finalizado", f"Todos os vídeos foram convertidos para {selected_format.upper()} com sucesso!")
 
     def append_status(self, message):
@@ -113,9 +130,27 @@ class VideoConverterApp:
         self.status_textbox.see('end')
         self.status_textbox.configure(state='disabled')
 
+    def clear_status(self):
+        self.status_textbox.configure(state='normal')
+        current_text = self.status_textbox.get("1.0", "end")
+        dir_line = ""
+        for line in current_text.strip().splitlines():
+            if line.startswith("Diretório selecionado:"):
+                dir_line = line
+                break
+
+        self.status_textbox.delete("1.0", "end")
+        if dir_line:
+            self.status_textbox.insert("end", dir_line + "\n")
+
+        self.status_textbox.configure(state='disabled')
+        self.progress_bar.set(0)
+        self.progress_count_label.configure(text="0/0")
+        self.progress_percent_label.configure(text="0%")
+
 if __name__ == "__main__":
     root = ctk.CTk()
     app = VideoConverterApp(root)
-    root.state("zoomed")  
+    root.state("zoomed")
     root.resizable(True, True)
     root.mainloop()

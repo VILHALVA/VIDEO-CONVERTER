@@ -6,17 +6,32 @@
 <img src="./IMAGENS/FOTO_03.png" align="center" width="400"> <br>
 
 ## DESCRIÇÃO:
-O aplicativo é um **Conversor de Vídeos com interface gráfica**, feito com `customtkinter`, `tkinter`, `ffmpeg` e `threading`. Ele permite converter diversos arquivos de vídeo de um diretório para outro formato com poucos cliques. 
+O aplicativo é um **Conversor de Vídeos com interface gráfica moderna**, desenvolvido com `customtkinter`, `tkinter`, `ffmpeg` e `threading`. Ele permite converter automaticamente arquivos de vídeo de um diretório para um novo formato com poucos cliques, mantendo uma interface intuitiva e responsiva.
+
+Ideal para quem precisa converter vários vídeos de forma rápida e centralizada, com feedback visual de progresso e status em tempo real.
 
 ## FUNCIONALIDADES:
-* Converte automaticamente **todos os arquivos de vídeo** em um diretório para um formato de saída escolhido.
-* Suporta formatos populares como: `MP4`, `AVI`, `MOV`, `MKV`, `WEBM`, entre outros.
-* Feita com `customtkinter`, usando tema escuro e visual responsivo.
-* Permite selecionar um diretório com arquivos de vídeo usando um botão de navegação.
-* Você pode escolher o formato desejado com botões de seleção (MP4, AVI, MOV, etc).
-* Mostra no final uma mensagem de sucesso.
-* Exibe o log de conversão e erros, se houver, em uma **caixa de texto**.
-* Os arquivos convertidos são salvos automaticamente em uma subpasta: `CONVERTIDOS_<FORMATO>` (por exemplo: `CONVERTIDOS_MP4`).
+✅ **Conversão automática** de todos os arquivos de vídeo em um diretório para o formato desejado.
+
+🎞️ **Suporte a formatos populares**: `MP4`, `AVI`, `MOV`, `MKV`, `WEBM`, entre outros.
+
+🖼️ **Interface gráfica moderna (tema escuro)** com `customtkinter`, responsiva e redimensionável.
+
+📁 **Botão de seleção de diretório** para escolher a pasta com os vídeos que serão convertidos.
+
+🔘 **Botões horizontais de seleção de formato** (MP4, AVI, MOV, MKV, WEBM), centralizados e organizados em uma área com borda visual elegante.
+
+⚙️ **Conversão em segundo plano (thread)**, sem travar a interface.
+
+📊 **Barra de progresso com contador e percentual**, indicando visualmente o andamento da conversão.
+
+📝 **Área de status com logs em tempo real**, exibindo mensagens do `ffmpeg`, nomes dos arquivos e possíveis erros.
+
+🔄 Ao iniciar uma nova conversão, **a barra de progresso e os logs são reiniciados automaticamente**, mas **a mensagem do diretório selecionado é preservada**.
+
+📂 Os arquivos convertidos são salvos em uma **subpasta automática chamada `CONVERTIDOS_<FORMATO>`** (exemplo: `CONVERTIDOS_MP4`), dentro do mesmo diretório original.
+
+✅ Ao final da conversão, uma mensagem de sucesso é exibida e o caminho da pasta de saída é mostrado no log.
 
 ## COMO USAR?
 1. **Instale as bibliotecas necessárias:** Antes de executar o app, certifique-se de instalar todas as dependências necessárias. No terminal, execute o seguinte comando para instalar as dependências listadas no arquivo requirements.txt em `CODIGO`:
@@ -52,23 +67,35 @@ O aplicativo é um **Conversor de Vídeos com interface gráfica**, feito com `c
    ```
 
 4. **Abrir o Programa**
-   Execute o script Python. A janela principal será exibida.
+   Execute o script Python. A janela principal do conversor será exibida em modo maximizado e com tema escuro.
 
 5. **Selecionar um Diretório**
-   Clique no botão **"DIRETÓRIO"** para escolher a pasta onde estão seus vídeos.
+   Clique no botão **"DIRETÓRIO"** para escolher a pasta onde estão os seus vídeos.
+   O caminho selecionado será exibido na caixa de status.
 
 6. **Escolher o Formato de Saída**
-   Clique em um dos botões de formato (por exemplo, `MP4`, `MKV`, `AVI`) para selecionar o formato desejado.
+   Selecione o formato desejado clicando em um dos botões horizontais (por exemplo: `MP4`, `AVI`, `MKV`, etc).
 
-7. **Iniciar Conversão**
-   Clique no botão **"CONVERTER"**.
-   O programa processará os vídeos automaticamente em segundo plano (sem travar a interface).
+7. **Iniciar a Conversão**
+   Clique no botão **"CONVERTER"** para iniciar o processo.
+   Isso irá:
+
+   * Zerar a barra de progresso.
+   * Limpar os logs anteriores da área de status (preservando o diretório selecionado).
+   * Iniciar a conversão em segundo plano, mantendo a interface responsiva.
 
 8. **Acompanhar o Progresso**
-   A janela de status mostrará os vídeos sendo convertidos e possíveis mensagens do `ffmpeg`.
+
+   * A barra de progresso será atualizada a cada vídeo convertido.
+   * A contagem e o percentual aparecerão abaixo da caixa de status.
+   * A área de status exibirá mensagens em tempo real do `ffmpeg`, além de possíveis erros.
 
 9. **Conferir os Arquivos Convertidos**
-   Após o término, os arquivos convertidos estarão em uma subpasta criada dentro da pasta original.
+
+   * Após a finalização, será exibida uma mensagem de sucesso.
+   * A caixa de status mostrará **"Conversão concluída!"** e também o caminho da pasta onde os arquivos foram salvos.
+   * Os vídeos convertidos estarão em uma subpasta criada automaticamente chamada:
+     **`CONVERTIDOS_<FORMATO>`** (por exemplo: `CONVERTIDOS_MP4`), dentro da pasta original.
 
 ## SOBRE O EXECUTAVEL:
 ### 1. EXECUTANDO:
