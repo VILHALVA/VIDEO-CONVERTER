@@ -66,17 +66,17 @@ Ideal para quem precisa converter vários vídeos de forma rápida e centralizad
    python CODIGO.py
    ```
 
-4. **Abrir o Programa**
+4. **Abrir o Programa:**
    Execute o script Python. A janela principal do conversor será exibida em modo maximizado e com tema escuro.
 
 5. **Selecionar um Diretório**
    Clique no botão **"DIRETÓRIO"** para escolher a pasta onde estão os seus vídeos.
    O caminho selecionado será exibido na caixa de status.
 
-6. **Escolher o Formato de Saída**
+6. **Escolher o Formato de Saída:**
    Selecione o formato desejado clicando em um dos botões horizontais (por exemplo: `MP4`, `AVI`, `MKV`, etc).
 
-7. **Iniciar a Conversão**
+7. **Iniciar a Conversão:**
    Clique no botão **"CONVERTER"** para iniciar o processo.
    Isso irá:
 
@@ -84,14 +84,12 @@ Ideal para quem precisa converter vários vídeos de forma rápida e centralizad
    * Limpar os logs anteriores da área de status (preservando o diretório selecionado).
    * Iniciar a conversão em segundo plano, mantendo a interface responsiva.
 
-8. **Acompanhar o Progresso**
-
+8. **Acompanhar o Progresso:**
    * A barra de progresso será atualizada a cada vídeo convertido.
    * A contagem e o percentual aparecerão abaixo da caixa de status.
    * A área de status exibirá mensagens em tempo real do `ffmpeg`, além de possíveis erros.
 
-9. **Conferir os Arquivos Convertidos**
-
+9. **Conferir os Arquivos Convertidos:**
    * Após a finalização, será exibida uma mensagem de sucesso.
    * A caixa de status mostrará **"Conversão concluída!"** e também o caminho da pasta onde os arquivos foram salvos.
    * Os vídeos convertidos estarão em uma subpasta criada automaticamente chamada:
