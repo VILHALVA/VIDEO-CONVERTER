@@ -95,28 +95,79 @@ Ideal para quem precisa converter vários vídeos de forma rápida e centralizad
    * Os vídeos convertidos estarão em uma subpasta criada automaticamente chamada:
      **`CONVERTIDOS_<FORMATO>`** (por exemplo: `CONVERTIDOS_MP4`), dentro da pasta original.
 
-## SOBRE O EXECUTAVEL:
+## SOBRE O EXECUTAVEL E O INSTALADOR:
 ### 1. EXECUTANDO:
-- Este arquivo executável está disponível apenas para `Windows X64`. Para executá-lo, basta dar dois cliques. O executável é bastante útil caso o Python não esteja instalado. Trata-se da mesma aplicação do arquivo `CODIGO.py`. Se desejar, você pode recompilá-lo novamente; é para isso que forneci o arquivo `imagem.ico`.
+   * O instalador está disponível  em `./APP`. Para instala-lo, basta dar dois cliques e seguir as orientações na tela. 
+   * **Observação:** Certifique-se de que o `ffmpeg` esteja instalado e adicionado à variável de ambiente PATH do sistema para que o executável funcione corretamente.
 
-- **Observação:** Certifique-se de que o `ffmpeg` esteja instalado e adicionado à variável de ambiente PATH do sistema para que o executável funcione corretamente.
-
-### 2. GERANDO:
-   **1. Instalação do [PyInstaller:](https://pyinstaller.org/en/stable/)**
-   - Certifique-se de ter o PyInstaller instalado. Se não tiver, instale usando o comando abaixo:
+### 2. GERANDO O EXECUTAVEL:
+   **1. Instalação do PyInstaller:**
+   * Certifique-se de ter o PyInstaller instalado. Se não tiver, instale usando o comando abaixo:
    ```bash
    pip install pyinstaller
    ```
 
    **2. Gerando o Executável:**
-   - Para gerar o executável, utilize o comando `pyinstaller` seguido de opções:
-      - `--icon="imagem.ico"`: Especifica o ícone do executável.
-      - `-w`: Especifica que o executável será do tipo "windowed", ou seja, sem exibir uma janela de console.
-      - `-F`: Gera um único arquivo executável em vez de vários.
-      - `CODIGO.py`: Substitua "CODIGO.py" pelo nome do seu arquivo Python principal.
+   * No diretório `./CODIGO`, utilize o comando abaixo para gerar o executável:
+
    ```bash
-   pyinstaller --icon="imagem.ico" -w -F CODIGO.py
+   pyinstaller EXECUTAVEL.spec
    ```
+
+   * O executável `VIDEO CONVERTER.exe` será criado na pasta `./CODIGO/dist`.
+   * Após a geração, você pode excluir a pasta `./CODIGO/build`.
+
+### 3. GERANDO O INSTALADOR:
+#### PASSO 1: BAIXAR E INSTALAR O INNO SETUP:
+1. **Download**: Baixe o Inno Setup do site oficial: [Inno Setup](http://www.jrsoftware.org/isdl.php).
+2. **Instalação**: Siga o assistente de instalação para instalar o Inno Setup no seu sistema.
+
+#### PASSO 2: CRIAR O INSTALADOR:
+1. **Editar o arquivo do instalador**
+   No diretório `./CODIGO`, abra o arquivo `INSTALADOR.iss` e atualize os seguintes trechos:
+
+   * **Ícone do instalador:**
+     Substitua o caminho atual da linha `SetupIconFile=` pelo caminho correto do seu ícone:
+
+     ```ini
+     SetupIconFile=C:\Users\HP\Downloads\GITHUB\REPOSITORIO\02-PROJETOS PUBLICOS\02-APLICATIVOS\VIDEO CONVERTER\CODIGO\imagem.ico
+     ```
+
+   * **Caminho do executável a ser empacotado:**
+     Atualize a seção `[Files]` com o caminho do executável gerado:
+
+     ```ini
+     [Files]
+     Source: "C:\Users\HP\Downloads\GITHUB\REPOSITORIO\02-PROJETOS PUBLICOS\02-APLICATIVOS\VIDEO CONVERTER\CODIGO\dist\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+     ```
+
+2. **Gerar o instalador no Inno Setup:**
+   * Abra o arquivo `./CODIGO/INSTALADOR.iss` com o **Inno Setup**.
+   * Clique em **"Compile"** para gerar o instalador.
+
+3. **Limpar arquivos temporários:**
+   * Após a criação do instalador, você pode excluir o executável temporário:
+
+     ```
+     ./CODIGO/dist/VIDEO CONVERTER.exe
+     ```
+
+4. **Instalando o Aplicativo:**
+   * Execute o instalador gerado, localizado em:
+
+   ```
+   ./APP/VIDEO CONVERTER.exe
+   ```
+
+   * O assistente de instalação será iniciado e, por padrão, o aplicativo será instalado em:
+
+   ```
+   C:\Program Files\VIDEO CONVERTER
+   ```
+
+## SUBSÍDIOS:
+* [DOCUMENTAÇÃO OFICIAL DO PYINSTALLER](https://pyinstaller.org/en/stable/)
+* [DOCUMENTAÇÃO OFICIAL DO INNO SETUP](http://www.jrsoftware.org/isinfo.php)
 
 ## NÃO SABE?
 - Entendemos que para manipular arquivos em muitas linguagens, é necessário possuir conhecimento nessas áreas. Para auxiliar nesse aprendizado, oferecemos cursos gratuitos disponíveis:
