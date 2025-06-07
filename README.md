@@ -96,11 +96,13 @@ Ideal para quem precisa converter vários vídeos de forma rápida e centralizad
      **`CONVERTIDOS_<FORMATO>`** (por exemplo: `CONVERTIDOS_MP4`), dentro da pasta original.
 
 ## SOBRE O EXECUTAVEL E O INSTALADOR:
-### 1. EXECUTANDO:
-   * O instalador está disponível  em `./APP`. Para instala-lo, basta dar dois cliques e seguir as orientações na tela. 
+### 1. EXECUTANDO O INSTALADOR:
+   * O instalador está localizado no diretório `./APP` e está disponível apenas para sistemas **Windows x64**. Para realizar a instalação, basta **dar dois cliques no arquivo** e seguir as instruções exibidas na tela.
    * **Observação:** Certifique-se de que o `ffmpeg` esteja instalado e adicionado à variável de ambiente PATH do sistema para que o executável funcione corretamente.
 
 ### 2. GERANDO O EXECUTAVEL:
+> **IMPORTANTE:** Antes de criar o instalador, é necessário gerar o arquivo `VIDEO CONVERTER.exe`. Para isso, siga os passos abaixo:
+
    **1. Instalação do PyInstaller:**
    * Certifique-se de ter o PyInstaller instalado. Se não tiver, instale usando o comando abaixo:
    ```bash
@@ -123,8 +125,17 @@ Ideal para quem precisa converter vários vídeos de forma rápida e centralizad
 2. **Instalação**: Siga o assistente de instalação para instalar o Inno Setup no seu sistema.
 
 #### PASSO 2: CRIAR O INSTALADOR:
+> **IMPORTANTE:** Antes de criar o novo instalador, certifique-se de excluir o arquivo `./APP/VIDEO CONVERTER.exe`.
+
 1. **Editar o arquivo do instalador**
    No diretório `./CODIGO`, abra o arquivo `INSTALADOR.iss` e atualize os seguintes trechos:
+
+   * **Versão do Aplicativo:**
+      Atualize o valor da linha `MyAppVersion` com a nova versão do aplicativo.Exemplo:
+
+      ```ini
+      #define MyAppVersion "1.0"
+      ```
 
    * **Ícone do instalador:**
      Substitua o caminho atual da linha `SetupIconFile=` pelo caminho correto do seu ícone:
@@ -146,34 +157,19 @@ Ideal para quem precisa converter vários vídeos de forma rápida e centralizad
    * Clique em **"Compile"** para gerar o instalador.
 
 3. **Limpar arquivos temporários:**
-   * Após a criação do instalador, você pode excluir o executável temporário:
-
-     ```
-     ./CODIGO/dist/VIDEO CONVERTER.exe
-     ```
+   * Após a criação do instalador, você pode excluir o executável temporário `./CODIGO/dist/VIDEO CONVERTER.exe`.
 
 4. **Instalando o Aplicativo:**
-   * Execute o instalador gerado, localizado em:
-
-   ```
-   ./APP/VIDEO CONVERTER.exe
-   ```
-
-   * O assistente de instalação será iniciado e, por padrão, o aplicativo será instalado em:
-
-   ```
-   C:\Program Files\VIDEO CONVERTER
-   ```
-
-## SUBSÍDIOS:
-* [DOCUMENTAÇÃO OFICIAL DO PYINSTALLER](https://pyinstaller.org/en/stable/)
-* [DOCUMENTAÇÃO OFICIAL DO INNO SETUP](http://www.jrsoftware.org/isinfo.php)
+   * Se o `Aplicativo` não iniciar automaticamente a instalação, você pode executar manualmente o arquivo `./APP/VIDEO CONVERTER.exe` clicando duas vezes sobre ele.
+   * O assistente de instalação será iniciado e, por padrão, o aplicativo será instalado no seguinte caminho: `C:\Program Files\VIDEO CONVERTER`.
 
 ## NÃO SABE?
-- Entendemos que para manipular arquivos em muitas linguagens, é necessário possuir conhecimento nessas áreas. Para auxiliar nesse aprendizado, oferecemos cursos gratuitos disponíveis:
+- Entendemos que para manipular arquivos em muitas linguagens e tecnologias, é necessário possuir conhecimento nessas áreas. Para auxiliar nesse aprendizado, oferecemos cursos gratuitos e alguns subsídios:
 * [CURSO DE PYTHON](https://github.com/VILHALVA/CURSO-DE-PYTHON)
 * [CURSO DE CUSTOMTKINTER](https://github.com/VILHALVA/CURSO-DE-CUSTOMTKINTER)
 * [CONFIRA MAIS CURSOS](https://github.com/VILHALVA?tab=repositories&q=+topic:CURSO)
+* [DOCUMENTAÇÃO OFICIAL DO PYINSTALLER](https://pyinstaller.org/en/stable/)
+* [DOCUMENTAÇÃO OFICIAL DO INNO SETUP](http://www.jrsoftware.org/isinfo.php)
 
 ## CREDITOS:
 - [PROJETO BASEADO NO "AUDIO CONVERTER"](https://github.com/VILHALVA/AUDIO-CONVERTER)
