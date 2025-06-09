@@ -98,7 +98,7 @@ Ideal para quem precisa converter vários vídeos de forma rápida e centralizad
 ## SOBRE O EXECUTAVEL E O INSTALADOR:
 ### 1. EXECUTANDO O INSTALADOR:
    * O instalador está localizado no diretório `./APP` e está disponível apenas para sistemas **Windows x64**. Para realizar a instalação, basta **dar dois cliques no arquivo** e seguir as instruções exibidas na tela.
-   * **Observação:** Certifique-se de que o `ffmpeg` esteja instalado e adicionado à variável de ambiente PATH do sistema para que o executável funcione corretamente.
+   * **Observação:** Certifique-se de que o `ffmpeg` esteja instalado e adicionado à variável de ambiente PATH do sistema para que o aplicativo funcione corretamente.
 
 ### 2. GERANDO O EXECUTAVEL:
 > **IMPORTANTE:** Antes de criar o instalador, é necessário gerar o arquivo `VIDEO CONVERTER.exe`. Para isso, siga os passos abaixo:
@@ -127,29 +127,13 @@ Ideal para quem precisa converter vários vídeos de forma rápida e centralizad
 #### PASSO 2: CRIAR O INSTALADOR:
 > **IMPORTANTE:** Antes de criar o novo instalador, certifique-se de excluir o arquivo `./APP/VIDEO CONVERTER.exe`.
 
-1. **Editar o arquivo do instalador**
-   No diretório `./CODIGO`, abra o arquivo `INSTALADOR.iss` e atualize os seguintes trechos:
+1. **Editar o arquivo do instalador:**
+   * No diretório `./CODIGO`, abra o arquivo `INSTALADOR.iss` e atualize o seguinte trecho:
 
-   * **Versão do Aplicativo:**
-      Atualize o valor da linha `MyAppVersion` com a nova versão do aplicativo.Exemplo:
-
-      ```ini
-      #define MyAppVersion "1.0"
-      ```
-
-   * **Ícone do instalador:**
-     Substitua o caminho atual da linha `SetupIconFile=` pelo caminho correto do seu ícone:
+   * Localize a diretiva `#define Diretorio` e substitua pelo caminho correto do diretório do projeto. Exemplo:
 
      ```ini
-     SetupIconFile=C:\Users\HP\Downloads\GITHUB\REPOSITORIO\02-PROJETOS PUBLICOS\02-APLICATIVOS\VIDEO CONVERTER\CODIGO\imagem.ico
-     ```
-
-   * **Caminho do executável a ser empacotado:**
-     Atualize a seção `[Files]` com o caminho do executável gerado:
-
-     ```ini
-     [Files]
-     Source: "C:\Users\HP\Downloads\GITHUB\REPOSITORIO\02-PROJETOS PUBLICOS\02-APLICATIVOS\VIDEO CONVERTER\CODIGO\dist\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+     #define Diretorio "C:\Users\HP\Downloads\GITHUB\REPOSITORIO\02-PROJETOS PUBLICOS\02-APLICATIVOS\VIDEO CONVERTER\CODIGO"
      ```
 
 2. **Gerar o instalador no Inno Setup:**

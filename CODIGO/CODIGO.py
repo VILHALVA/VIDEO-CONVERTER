@@ -4,6 +4,21 @@ import os
 import subprocess
 from threading import Thread
 import glob
+import ctypes
+
+def is_oculto_ou_sistema(path):
+    if os.name == "nt":
+        try:
+            atributos = ctypes.windll.kernel32.GetFileAttributesW(str(path))
+            if atributos == -1:
+                return False
+            FILE_ATTRIBUTE_HIDDEN = 0x2
+            FILE_ATTRIBUTE_SYSTEM = 0x4
+            return bool(atributos & (FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM))
+        except Exception:
+            return False
+    else:
+        return os.path.basename(path).startswith(".")
 
 class VideoConverterApp:
     def __init__(self, root):
@@ -31,7 +46,7 @@ class VideoConverterApp:
         self.format_frame_container = ctk.CTkFrame(self.scrollable_frame, border_width=2, border_color="gray")
         self.format_frame_container.pack(pady=10, padx=10)
 
-        self.format_label = ctk.CTkLabel(self.format_frame_container, text="FORMATO DE SAÍDA:", font=("Arial", 12))
+        self.format_label = ctk.CTkLabel(self.format_frame_container, text="CONVERTER PARA:", font=("Arial", 12))
         self.format_label.pack(pady=(10, 0))
 
         self.radio_buttons_frame = ctk.CTkFrame(self.format_frame_container)
@@ -83,12 +98,16 @@ class VideoConverterApp:
 
         video_extensions = ['*.mp4', '*.avi', '*.mov', '*.mkv', '*.flv', '*.wmv', '*.webm', '*.mpeg']
         video_files = []
+
         for ext in video_extensions:
-            video_files.extend(glob.glob(os.path.join(input_dir, ext)))
+            found = glob.glob(os.path.join(input_dir, ext))
+            for file in found:
+                if not is_oculto_ou_sistema(file):
+                    video_files.append(file)
 
         total_files = len(video_files)
         if not video_files:
-            self.append_status("Nenhum arquivo de vídeo encontrado no diretório!\n")
+            self.append_status("Nenhum arquivo de vídeo visível encontrado no diretório!\n")
             return
 
         converted_count = 0
@@ -108,7 +127,7 @@ class VideoConverterApp:
                     stdout=subprocess.PIPE,
                     stderr=subprocess.STDOUT,
                     text=True,
-                    creationflags=subprocess.CREATE_NO_WINDOW
+                    creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0
                 )
                 self.append_status(result.stdout)
             except Exception as e:
